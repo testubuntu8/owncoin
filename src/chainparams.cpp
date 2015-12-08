@@ -68,7 +68,7 @@ static const Checkpoints::CCheckpointData data = {
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        ( 0, uint256("0x00000de94a3bf62d7e85da5a8a5c63f54ca36757adfa7a9d7f9739683a52fb27"))
+        ( 0, uint256("00000de94a3bf62d7e85da5a8a5c63f54ca36757adfa7a9d7f9739683a52fb27"))
         ;
 static const Checkpoints::CCheckpointData dataTestnet = {
         &mapCheckpointsTestnet,
@@ -136,10 +136,10 @@ public:
         genesis.nVersion = 1;
         genesis.nTime    = 1449579900;
         genesis.nBits    = 0x1e0ffff0;
-        genesis.nNonce   = 2087222;
+        genesis.nNonce   = 29689249;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000205a2b36c89d27547db95cdf4a3038662dd26cf21af8b9c8978a64b06a2"));
+        assert(hashGenesisBlock == uint256("0x0000023779d880db8f4ad942f78535b149fd718e46438e93e94e2331af74e279"));
         assert(genesis.hashMerkleRoot == uint256("0xb7ba7a0616705a327d39f6bf791c7db48abe4c79a11b62c6d690816eddc4d730"));
 
         vSeeds.clear();
