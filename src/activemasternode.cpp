@@ -67,12 +67,12 @@ void CActiveMasternode::ManageStatus()
         LogPrintf("CActiveMasternode::ManageStatus() - Checking inbound connection to '%s'\n", service.ToString());
 
         if(Params().NetworkID() == CBaseChainParams::MAIN) {
-            if(service.GetPort() != 9999) {
+            if(service.GetPort() != 9887) {
                 notCapableReason = strprintf("Invalid port: %u - only 9999 is supported on mainnet.", service.GetPort());
                 LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
                 return;
             }
-        } else if(service.GetPort() == 9999) {
+        } else if(service.GetPort() == 9887) {
             notCapableReason = strprintf("Invalid port: %u - 9999 is only supported on mainnet.", service.GetPort());
             LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
             return;
@@ -262,12 +262,12 @@ bool CActiveMasternode::Register(std::string strService, std::string strKeyMaste
 
     CService service = CService(strService);
     if(Params().NetworkID() == CBaseChainParams::MAIN) {
-        if(service.GetPort() != 9999) {
+        if(service.GetPort() != 9887) {
             errorMessage = strprintf("Invalid port %u for masternode %s - only 9999 is supported on mainnet.", service.GetPort(), strService);
             LogPrintf("CActiveMasternode::Register() - %s\n", errorMessage);
             return false;
         }
-    } else if(service.GetPort() == 9999) {
+    } else if(service.GetPort() == 9887) {
         errorMessage = strprintf("Invalid port %u for masternode %s - 9999 is only supported on mainnet.", service.GetPort(), strService);
         LogPrintf("CActiveMasternode::Register() - %s\n", errorMessage);
         return false;
