@@ -1,53 +1,43 @@
-Owncoin Core staging tree 0.12
+Dash Core staging tree 0.12
 ===============================
 
-https://www.mycointest.io
+`master:` [![Build Status](https://travis-ci.org/dashpay/dash.svg?branch=master)](https://travis-ci.org/dashpay/dash) `v0.12.0.x:` [![Build Status](https://travis-ci.org/dashpay/dash.svg?branch=v0.12.0.x)](https://travis-ci.org/dashpay/dash/branches) `v0.12.1.x:` [![Build Status](https://travis-ci.org/dashpay/dash.svg?branch=v0.12.1.x)](https://travis-ci.org/dashpay/dash/branches)
+
+https://www.dash.org
 
 Copyright (c) 2009-2015 Bitcoin Core Developers
 
-Copyright (c) 2014-2015 Owncoin Core Developers
+Copyright (c) 2014-2015 Dash Core Developers
 
 
-What is Owncoin?
+What is Dash?
 ----------------
 
-Owncoin is an experimental new digital currency that enables anonymous, instant
-payments to anyone, anywhere in the world. Owncoin uses peer-to-peer technology
+Dash is an experimental new digital currency that enables anonymous, instant
+payments to anyone, anywhere in the world. Dash uses peer-to-peer technology
 to operate with no central authority: managing transactions and issuing money
-are carried out collectively by the network. Owncoin Core is the name of open
+are carried out collectively by the network. Dash Core is the name of open
 source software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Owncoin Core software, see https://www.mycointest.io/downloads.
+the Dash Core software, see https://www.dash.org/downloads.
 
 
 License
 -------
 
-Owncoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Dash Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see http://opensource.org/licenses/MIT.
 
-Development process
+Development Process
 -------------------
 
-Developers work in their own trees, then submit pull requests when they think
-their feature or bug fix is ready.
+The `master` branch is meant to be stable. Development is normally done in separate branches.
+[Tags](https://github.com/dashpay/dash/tags) are created to indicate new official,
+stable release versions of Dash Core.
 
-If it is a simple/trivial/non-controversial change, then one of the Owncoin
-development team members simply pulls it.
+The contribution workflow is described in [CONTRIBUTING.md](https://github.com/dashpay/dash/blob/v0.12.1.x/CONTRIBUTING.md).
 
-If it is a *more complicated or potentially controversial* change, then the patch
-submitter will be asked to start a discussion (if they haven't already) on the
-[mailing list](https://lists.linuxfoundation.org/mailman/listinfo/bitcoin-dev)
-
-The patch will be accepted if there is broad consensus that it is a good thing.
-Developers should expect to rework and resubmit patches if the code doesn't
-match the project's coding conventions (see [doc/coding.md](doc/coding.md)) or are
-controversial.
-
-The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/mycointest/owncoin/tags) are created
-regularly to indicate new official, stable release versions of Owncoin. ***TODO***
 
 Testing
 -------
@@ -65,20 +55,20 @@ submit new unit tests for old code. Unit tests can be compiled and run (assuming
 Every pull request is built for both Windows and Linux on a dedicated server,
 and unit and sanity tests are automatically run. The binaries produced may be
 used for manual QA testing — a link to them will appear in a comment on the
-pull request posted by [OwncoinPullTester](https://github.com/mycointest/PullTester). See https://github.com/TheBlueMatt/test-scripts
+pull request posted by [DashPullTester](https://github.com/dashpay/PullTester). See https://github.com/TheBlueMatt/test-scripts
 for the build/test scripts. ***TODO***
 
 ### Manual Quality Assurance (QA) Testing
 
 Large changes should have a test plan, and should be tested by somebody other
 than the developer who wrote the code.
-See https://github.com/mycointest/QA/ for how to create a test plan. ***TODO***
+See https://github.com/dashpay/QA/ for how to create a test plan. ***TODO***
 
 Translations
 ------------
 
 Changes to translations as well as new translations can be submitted to
-[Bitcoin Core's Transifex page](https://www.transifex.com/projects/p/owncoin/).
+[Bitcoin Core's Transifex page](https://www.transifex.com/projects/p/dash/).
 
 Translations are periodically pulled from Transifex and merged into the git repository. See the
 [translation process](doc/translation_process.md) for details on how this works.
@@ -86,7 +76,7 @@ Translations are periodically pulled from Transifex and merged into the git repo
 **Important**: We do not accept translation changes as GitHub pull requests because the next
 pull from Transifex would automatically overwrite them again.
 
-Translators should also subscribe to the [mailing list](https://groups.google.com/forum/#!forum/owncoin-translators). ***TODO***
+Translators should also subscribe to the [mailing list](https://groups.google.com/forum/#!forum/dash-translators). ***TODO***
 
 Development tips and tricks
 ---------------------------
@@ -109,7 +99,7 @@ to see it.
 
 **testnet and regtest modes**
 
-Run with the -testnet option to run with "play owncoin" on the test network, if you
+Run with the -testnet option to run with "play dash" on the test network, if you
 are testing multi-machine code that needs to operate across the internet.
 
 If you are testing something that can run on one machine, run with the -regtest option.
@@ -118,7 +108,7 @@ that run in -regtest mode.
 
 **DEBUG_LOCKORDER**
 
-Owncoin Core is a multithreaded application, and deadlocks or other multithreading bugs
+Dash Core is a multithreaded application, and deadlocks or other multithreading bugs
 can be very difficult to track down. Compiling with -DDEBUG_LOCKORDER (configure
 CXXFLAGS="-DDEBUG_LOCKORDER -g") inserts run-time checks to keep track of which locks
 are held, and adds warnings to the debug.log file if inconsistencies are detected.

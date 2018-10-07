@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Dash developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -140,6 +140,11 @@ public:
     std::string ToString() const;
 
     void Remove(CTxIn vin);
+
+    /// Update masternode list and maps using provided CMasternodeBroadcast
+    void UpdateMasternodeList(CMasternodeBroadcast mnb);
+    /// Perform complete check and only then update list and maps
+    bool CheckMnbAndUpdateMasternodeList(CMasternodeBroadcast mnb, int& nDos);
 
 };
 

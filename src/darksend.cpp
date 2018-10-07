@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Dash developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,10 +35,10 @@ map<uint256, CDarksendBroadcastTx> mapDarksendBroadcastTxes;
 // Keep track of the active Masternode
 CActiveMasternode activeMasternode;
 
-/* *** BEGIN DARKSEND MAGIC - OWNCOIN **********
-    Copyright (c) 2014-2015, Owncoin Developers
-        eduffield - evan@mycointest.io
-        udjinm6   - udjinm6@mycointest.io
+/* *** BEGIN DARKSEND MAGIC - DASH **********
+    Copyright (c) 2014-2015, Dash Developers
+        eduffield - evan@dashpay.io
+        udjinm6   - udjinm6@dashpay.io
 */
 
 void CDarksendPool::ProcessMessageDarksend(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
@@ -766,7 +766,7 @@ void CDarksendPool::ChargeRandomFees(){
 
                 Being that Darksend has "no fees" we need to have some kind of cost associated
                 with using it to stop abuse. Otherwise it could serve as an attack vector and
-                allow endless transaction that would bloat Owncoin and make it unusable. To
+                allow endless transaction that would bloat Dash and make it unusable. To
                 stop these kinds of attacks 1 in 10 successful transactions are charged. This
                 adds up to a cost of 0.001DRK per transaction on average.
             */
@@ -1539,20 +1539,23 @@ bool CDarksendPool::DoAutomaticDenominating(bool fDryRun)
                 std::vector<COutput> vTempCoins2;
                 // Try to match their denominations if possible
                 if (!pwalletMain->SelectCoinsByDenominations(dsq.nDenom, nValueMin, nBalanceNeedsAnonymized, vTempCoins, vTempCoins2, nValueIn, 0, nDarksendRounds)){
-                    LogPrintf("DoAutomaticDenominating - Couldn't match denominations %d\n", dsq.nDenom);
+                    LogPrintf("DoAutomaticDenominating --- Couldn't match denominations %d\n", dsq.nDenom);
                     continue;
                 }
 
+                CMasternode* pmn = mnodeman.Find(dsq.vin);
+                if(pmn == NULL)
+                {
+                    LogPrintf("DoAutomaticDenominating --- dsq vin %s is not in masternode list!", dsq.vin.ToString());
+                    continue;
+                }
+
+                LogPrintf("DoAutomaticDenominating --- attempt to connect to masternode from queue %s\n", pmn->addr.ToString());
+                lastTimeChanged = GetTimeMillis();
                 // connect to Masternode and submit the queue request
                 CNode* pnode = ConnectNode((CAddress)addr, NULL, true);
                 if(pnode != NULL)
                 {
-                    CMasternode* pmn = mnodeman.Find(dsq.vin);
-                    if(pmn == NULL)
-                    {
-                        LogPrintf("DoAutomaticDenominating --- dsq vin %s is not in masternode list!", dsq.vin.ToString());
-                        continue;
-                    }
                     pSubmittedToMasternode = pmn;
                     vecMasternodesUsed.push_back(dsq.vin);
                     sessionDenom = dsq.nDenom;
@@ -1594,7 +1597,7 @@ bool CDarksendPool::DoAutomaticDenominating(bool fDryRun)
             }
 
             lastTimeChanged = GetTimeMillis();
-            LogPrintf("DoAutomaticDenominating -- attempt %d connection to Masternode %s\n", i, pmn->addr.ToString());
+            LogPrintf("DoAutomaticDenominating --- attempt %d connection to Masternode %s\n", i, pmn->addr.ToString());
             CNode* pnode = ConnectNode((CAddress)pmn->addr, NULL, true);
             if(pnode != NULL){
                 pSubmittedToMasternode = pmn;
@@ -2107,10 +2110,14 @@ bool CDarkSendSigner::VerifyMessage(CPubKey pubkey, vector<unsigned char>& vchSi
         return false;
     }
 
-    if (fDebug && pubkey2.GetID() != pubkey.GetID())
-        LogPrintf("CDarkSendSigner::VerifyMessage -- keys don't match: %s %s\n", pubkey2.GetID().ToString(), pubkey.GetID().ToString());
+    if (pubkey2.GetID() != pubkey.GetID()) {
+        errorMessage = strprintf("keys don't match - input: %s, recovered: %s, message: %s, sig: %s\n",
+                    pubkey.GetID().ToString(), pubkey2.GetID().ToString(), strMessage,
+                    EncodeBase64(&vchSig[0], vchSig.size()));
+        return false;
+    }
 
-    return (pubkey2.GetID() == pubkey.GetID());
+    return true;
 }
 
 bool CDarksendQueue::Sign()
@@ -2223,7 +2230,7 @@ void ThreadCheckDarkSendPool()
     if(fLiteMode) return; //disable all Darksend/Masternode related functionality
 
     // Make this thread recognisable as the wallet flushing thread
-    RenameThread("owncoin-darksend");
+    RenameThread("dash-darksend");
 
     unsigned int c = 0;
 

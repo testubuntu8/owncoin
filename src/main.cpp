@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Dash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,7 +39,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Owncoin cannot be compiled without assertions."
+# error "Dash cannot be compiled without assertions."
 #endif
 
 /**
@@ -1539,7 +1539,7 @@ int64_t GetBlockValue(int nBits, int nHeight, const CAmount& nFees)
     double dDiff = (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     /* fixed bug caused diff to not be correctly calculated */
-    if(nHeight > 4500 || Params().NetworkID() == CBaseChainParams::TESTNET) dDiff = ConvertBitsToDouble(nBits);
+    if(nHeight > 4500 || Params().NetworkID() != CBaseChainParams::MAIN) dDiff = ConvertBitsToDouble(nBits);
 
     int64_t nSubsidy = 0;
     if(nHeight >= 5465) {
@@ -2013,7 +2013,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("owncoin-scriptch");
+    RenameThread("dash-scriptch");
     scriptcheckqueue.Thread();
 }
 

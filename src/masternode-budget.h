@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Dash developers
 
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -80,7 +80,7 @@ class CBudgetManager
 private:
 
     //hold txes until they mature enough to use
-    map<uint256, CTransaction> mapCollateral;
+    map<uint256, uint256> mapCollateralTxids;
 
 public:
     // critical section to protect the inner data structures
@@ -261,7 +261,7 @@ public:
 
     //check to see if we should vote on this
     void AutoCheck();
-    //total owncoin paid out by this budget
+    //total dash paid out by this budget
     CAmount GetTotalPayout();
     //vote on this finalized budget as a masternode
     void SubmitVote();
